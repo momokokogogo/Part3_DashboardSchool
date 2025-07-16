@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synthwave Proxy Browser</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      background: #111;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 5px #ff00cc, 0 0 10px #00fff9 inset;
+    }
+
+    .tab-btn.active {
+      background: #ff00cc;
+      box-shadow: 0 0 15px #ff00cc;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      max-width: 800px;
+      margin: 30px auto;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00f2ff;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      box-shadow: 0 0 10px #ff00cc inset;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00fff9;
+      border: none;
+      border-radius: 10px;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00fff9;
+    }
+
+    #loader {
+      display: none;
+      margin-top: 10px;
+      font-style: italic;
+      color: #00f2ff;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      background: #000;
+    }
+
+    #bootSplash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      color: #00fff9;
+      font-size: 1.5em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      font-family: 'Orbitron', sans-serif;
+      animation: fadeOut 2s ease 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    #terminalLog {
+      margin-top:20px;
+      background:#111;
+      color:#0f0;
+      padding:10px;
+      font-family:monospace;
+      height:150px;
+      overflow:auto;
+      box-shadow: 0 0 10px #00ff00 inset;
+    }
+
+    .synthwave {
+      background: linear-gradient(45deg, #ff00cc, #3333ff);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="bootSplash">🌀 Initializing Proxy Kernel...</div>
+
+  <div class="nav">
+    <button class="tab-btn active" data-tab="browser">🌐 Browser</button>
+    <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+  </div>
+
+  <!-- 🌐 Browser Tab -->
+  <div id="browser" class="tab-content active">
+    <h2>🌐 Proxy Browser</h2>
+    <input type="text" id="url" placeholder="Enter a site (e.g. youtube.com)" />
+    <button id="go">Go</button>
+    <div id="loader">⚡ Connecting to proxy...</div>
+    <div id="status"></div>
+    <iframe id="proxyFrame"></iframe>
+    <pre id="terminalLog"></pre>
+  </div>
+
+  <!-- ⚙️ Settings Tab -->
+  <div id="settings" class="tab-content">
+    <h2>⚙️ Settings</h2>
+    <label><input type="checkbox" id="themeSwitch"> Enable Synthwave Mode</label>
+    <hr style="border-color:#ff00cc;">
+    <label><input type="checkbox" id="debugToggle"> Show Debug Logs</label>
+    <hr style="border-color:#00f2ff;">
+    <button id="resetProxy" style="padding:10px; background:#ff00cc; border:none; border-radius:10px; color:white;">🔁 Restart Proxy UI</button>
+    <p style="margin-top:10px; font-size:0.9em; color:#ccc;">✨ Personalize your dashboard and tweak experimental features here.</p>
+  </div>
+
+  <!-- Sound FX -->
+  <audio id="clickSound" src="https://cdn.glitch.me/click.mp3" preload="auto"></audio>
+
+  <!-- Scripts -->
+  <script src="tabs.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
